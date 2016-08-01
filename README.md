@@ -89,7 +89,7 @@ If `maxVisible` is set, display this custom message at the bottom of the list of
 #### props.customClasses
 
 Type: `Object`
-Allowed Keys: `input`, `results`, `listItem`, `listAnchor`, `typeahead`, `hover`, `resultsTruncated`
+Allowed Keys: `input`, `results`, `listItem`, `listAnchor`, `hover`, `typeahead`, `resultsTruncated`
 
 An object containing custom class names for child elements. Useful for
 integrating with 3rd party UI kits.
@@ -258,7 +258,11 @@ The name for HTML forms to be used for submitting the tokens' values array.
 #### props.customClasses
 
 Type: `Object`
+<<<<<<< HEAD
 Allowed Keys: `input`, `results`, `listItem`, `listAnchor`, `typeahead`, `hover`, `resultsTruncated`
+=======
+Allowed Keys: `input`, `results`, `listItem`, `listAnchor`, `hover`, `typeahead`, `resultsTruncated`
+>>>>>>> e4d3feb2c1f04a3430f65f679fab867ce62324e9
 
 An object containing custom class names for child elements. Useful for
 integrating with 3rd party UI kits.
@@ -335,21 +339,46 @@ Event handler triggered whenever a token is removed.
 
 Type: `String` or `Function`
 
-A function to map an option onto a string for display in the list. Receives `(option, index)` where index is relative to the results list, not all the options. Must return a string.
+A function to map an option onto a string for display in the list. Receives `(option, index)` where index is relative to the results list, not all the options. Can either return a string or a React component.
 
 If provided as a string, it will interpret it as a field name and use that field from each option object.
 
 #### props.filterOption
 
-Type: `Function`
+Type: `String` or `Function`
 
 A function to filter the provided `options` based on the current input value. For each option, receives `(inputValue, option)`. If not supplied, defaults to [fuzzy string matching](https://github.com/mattyork/fuzzy).
+
+If provided as a string, it will interpret it as a field name and use that field from each option object.
+
+#### props.searchOptions
+
+Type: `Function`
+
+A function to filter, map, and/or sort the provided `options` based on the current input value.
+Receives `(inputValue, options)`.
+If not supplied, defaults to [fuzzy string matching](https://github.com/mattyork/fuzzy).
+
+Note: the function can be used to store other information besides the string in the internal state of the component.
+Make sure to use the `displayOption`, `inputDisplayOption`, and `formInputOption` props to extract/generate the correct format of data that each expects if you do this.
+
+#### props.inputDisplayOption
+
+Type: `String` or `Function`
+
+A function that maps the internal state of the visible options into the value stored in the text value field of the visible input when an option is selected.
+
+Receives `(option)`.
+
+If provided as a string, it will interpret it as a field name and use that field from each option object.
+
+If no value is set, the input will be set using `displayOption` when an option is selected.
 
 #### props.formInputOption
 
 Type: `String` or `Function`
 
-A function to map an option onto a string to include in HTML forms (see `props.name`). Receives `(option)` as arguments. Must return a string.
+A function to map an option onto a string to include in HTML forms as a hidden field (see `props.name`). Receives `(option)` as arguments. Must return a string.
 
 If specified as a string, it will interpret it as a field name and use that field from each option object.
 
